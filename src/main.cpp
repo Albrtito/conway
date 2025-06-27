@@ -7,17 +7,17 @@ int main() {
 
   std::cout << result << std::endl;
 
-  // SFML 3.x syntax
-  sf::RenderWindow window(sf::VideoMode({640u, 480u}), "SFML Application");
+  // SFML 2.x syntax
+  sf::RenderWindow window(sf::VideoMode(640, 480), "SFML Application");
   sf::CircleShape shape;
   shape.setRadius(40.f);
-  shape.setPosition({100.f, 100.f});
+  shape.setPosition(100.f, 100.f);
   shape.setFillColor(sf::Color::Cyan);
 
   while (window.isOpen()) {
-    // SFML 3.x event handling
-    while (auto event = window.pollEvent()) {
-      if (event->is<sf::Event::Closed>()) {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed) {
         window.close();
       }
     }

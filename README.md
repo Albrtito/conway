@@ -1,45 +1,102 @@
-# SFML C++ MacOS Example
+# Conway's Game of Life - SFML C++ MacOS
 
-A very simple example of how to use SFML in VSCode on MacOS
+A Conway's Game of Life implementation using SFML 2.x and CMake on macOS.
 
-# Prerequisites
+## Prerequisites
 
 1. [Git](https://git-scm.com/)
-2. [VSCode](https://code.visualstudio.com/)
+2. [VSCode](https://code.visualstudio.com/) or [Neovim](https://neovim.io/)
 3. [Homebrew](https://brew.sh)
-4. [Make](https://www.gnu.org/software/make/#download)
+4. [CMake](https://cmake.org/) - `brew install cmake`
+5. [Make](https://www.gnu.org/software/make/#download)
 
-# Setup
+## Setup
 
-First, clone this repo
+First, clone this repo:
 
-```
-git clone https://github.com/beatzoid/sfml-macos
-```
-
-Or you can click the green `Use this template` to automagically make a new repo under your account with all the files ([example](https://github.com/Beatzoid/sfml-template-test)) and then clone that.
-
-<br />
-
-Then, open it in VSCode,
-
-install SFML using homebrew
-
-```
-brew install sfml
+```bash
+git clone git@github.com:Albrtito/conway.git
+cd conway
 ```
 
-and get the path to the installation
+Install SFML 2.x using Homebrew:
+
+```bash
+brew install sfml@2
+```
+
+## Building
+
+### Using the build script (recommended):
+
+```bash
+./build.sh
+```
+
+### Manual CMake build:
+
+```bash
+mkdir build
+cd build
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+make
+```
+
+## Running
+
+After building, the executable will be located at `build/bin/Conway`:
+
+```bash
+cd build/bin
+./Conway
+```
+
+## Project Structure
 
 ```
-brew info sfml
+conway/
+├── src/                    # All source files (.cpp, .hpp)
+│   ├── main.cpp
+│   ├── add.cpp
+│   └── add.h
+├── build/                  # CMake build directory (generated)
+│   ├── bin/               # Executable output
+│   ├── Makefile           # Generated Makefile
+│   └── compile_commands.json  # LSP support
+├── .vscode/               # VSCode configuration
+├── .clang-format          # Code formatting rules
+├── CMakeLists.txt         # CMake configuration
+├── build.sh               # Build script
+├── clean.sh               # Clean script
+└── README.md
 ```
 
-You will see something like `/opt/homebrew/Cellar/sfml/2.5.1_2` in the output. If the numbers differ it's ok.
-First, you need to edit the `Makefile` and change the `SFML_PATH` variable to the path you got above. Then, open `.vscode/c_cpp_properties.json` and change the second entry in the `includePath` array to the path you got.
+## Development
 
-Then, press `Cmd+Shift+B` in VSCode to build and `FN+F5` to run. If it works, you should see a window with a black background and cyan circle. Once you exit the program, you should also see the number "5" in the terminal. Congrats, you can now make whatever you want with SFML!
+- **Code formatting**: Uses `.clang-format` with Google style
+- **LSP support**: `compile_commands.json` generated for Neovim/VSCode
+- **Build system**: CMake generates Makefiles in `build/` directory
+- **SFML version**: Uses SFML 2.x for better macOS compatibility
 
-# Credit
+### Cleaning build artifacts:
 
-[This](https://stackoverflow.com/a/73402250/10626998) StackOverflow answer
+```bash
+./clean.sh
+```
+
+### VSCode Integration
+
+The project includes VSCode configuration with proper include paths and LSP support. Press `Cmd+Shift+P` and run "CMake: Build" or use the build script.
+
+### Neovim Integration
+
+The `compile_commands.json` file provides LSP support for clangd and other language servers.
+
+## Features
+
+- ✅ SFML 2.x compatibility
+- ✅ CMake build system
+- ✅ LSP support (compile_commands.json)
+- ✅ Code formatting (.clang-format)
+- ✅ Cross-platform build scripts
+- ✅ Proper project structure
